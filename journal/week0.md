@@ -1,6 +1,17 @@
 # Week 0 — Billing and Architecture
 
-## Class notes 
+## My personal notes 
+
+- [Global Infrastructure :earth_americas:](./notes/aws-infra.md)
+
+- [Free Tier notes :free:](./notes/free-tier.md)
+
+- [Loggin services :mag:](./notes/logging.md)
+
+- [Security considerations :passport_control:]( ./notes/security.md)
+
+- [Growing list of AWS services :toolbox:]( ./notes/services.md)
+
 This are the notes I took from the livestream lesson:
 
 ![notes](./assets/week0/notes_livestream_week0.jpg)
