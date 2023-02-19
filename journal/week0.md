@@ -91,9 +91,72 @@ DQ: Imagine if we had a partnership with Momento or special thing
 
 ## Generate AWS Credentials
 Using the AWS console:
+
+You can have up to 2 credentials.
+
 ![aws credentials](./assets/week0/access_key.png)
 ## Cloud Shell
-in construction
+Using the CloudShell from the browser:
+
+![cloud shell](./assets/week0/cloud-shell.png)
 
 ## AWS CLI
-in construction
+
+### Installation
+
+AWSCLI is already installed on CloudShell, we need to install it in our local computer or gitpod (not in the repo's folder, in `workspace` folder), with this instructions (linux):
+
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+unzip awscliv2.zip
+
+sudo ./aws/install
+```
+[awscli instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions)
+
+### Set env variables
+AWSCLI need this env vars set:
+```
+$ export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+$ export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+$ export AWS_DEFAULT_REGION=us-west-2
+```
+*This is an example
+
+[configure env vars](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-set)
+
+Used this steps to install awscli in an ephemeral gitpod:
+
+![ephemeral git pod installation](./assets/week0/local-gitpod.png)
+
+Now do this every time gitpod starts it install all this. Use this gitpod configuration `gitpod.yaml`
+```
+tasks:
+  - name: aws-cli
+    env:
+      AWS_CLI_AUTO_PROMPT: on-partial
+    init: |
+      cd /workspace
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      unzip awscliv2.zip
+      sudo ./aws/install
+      cd $THEIA_WORKSPACE_ROOT
+```
+
+The env `AWS_CLI_AUTO_PROMPT` is partial mode:
+
+- Partial mode: Uses auto-prompt if a command is incomplete or cannot be run due to client-side validation errors. This mode is particular useful if you have pre-existing scripts, runbooks, or you only want to be auto-prompted for commands you are unfamiliar with rather than prompted on every command.
+
+Then push this code changes and save the env vars (AWS_ACCESS_KEY_ID,..) inside gitpod in a safe area using:
+
+`gp env ENV_VAR=VALUE`
+
+![git pod changes](./assets/week0/gitpod_config_and_envs.png)
+
+And then our gitpod now starts with awscli installed, and with our account already setup!
+
+As last step get the previously created budget from our gitpod using the awscli:
+
+![gitpod describe budget](./assets/week0/gitpod-aws-budget.png)
+
