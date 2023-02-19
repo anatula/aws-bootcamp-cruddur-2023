@@ -70,9 +70,13 @@ DQ: Imagine if we had a partnership with Momento or special thing
 
 ### Conceptual diagram
 ![](./assets/week0/Cruddur_Conceptual_Diagram.jpeg)
+[conceptual diagram link](https://lucid.app/lucidchart/invitations/accept/inv_2851885e-a97c-4c19-8b5e-e8229d163ec0)
+  
+  
 
 ### Logical diagram
 ![](./assets/week0/Cruddur_Logical_Diagram.jpeg)
+[logical diagram link](https://lucid.app/lucidchart/invitations/accept/inv_3da7cb06-0646-4bbd-b623-80f75a26cc47)
 
 ## Generate AWS Credentials
 in construction
