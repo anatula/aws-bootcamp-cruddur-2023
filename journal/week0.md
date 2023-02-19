@@ -63,8 +63,8 @@ DQ: Protection from Ddos  attack?
 >We assume the security and scalability is provided by AWS. Unless this is highly secure env, and this happens a lot, this gotta be addressed.
 
 DQ: We need a timeline service, to curate the feed, do we show it?
-
 >If it's a distinguished and it's important, show it
+
 DQ: Imagine if we had a partnership with Momento or special thing
 >The person needs to understand the business issue we're trying to solve, put the process name with the tool for that. The use of Momento is a constraint as a pre-selected option.
 
