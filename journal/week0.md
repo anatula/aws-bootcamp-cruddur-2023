@@ -90,7 +90,8 @@ DQ: Imagine if we had a partnership with Momento or special thing
 [logical diagram link](https://lucid.app/lucidchart/invitations/accept/inv_3da7cb06-0646-4bbd-b623-80f75a26cc47)
 
 ## Generate AWS Credentials
-in construction
+Using the AWS console:
+![aws credentials](./assets/week0/access_key.png)
 ## Cloud Shell
 in construction
 
