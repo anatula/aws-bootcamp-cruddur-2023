@@ -10,11 +10,16 @@ This are the notes I took from the livestream lesson:
 ## Homework
 
 ### Document the Notification Endpoint for the OpenAI Document
-Issue #16 first task
+Issue #16 first task, I added a new spec for the notification endpoint.
 ### Write a Flask Backend Endpoint for Notifications
-Issue #16 second task
+Issue #16 second task, it shows the openapi spec, and the using the `curl` command call the endpoint to receive the json data.
+
+![backend notifications](./assets/week1/notifications-openapi-backend.png)
+
 ### Write a React Page for Notifications
-Issue #16 last task
+Issue #16 last task, added a "This is homework for week1 of the bootcamp!":
+
+![frontend notifications](./assets/week1/notifications-front.png)
 ### Run DynamoDB Local Container and ensure it works
 
 In issue #17, to test it I used commands from [Andrew's repo](https://github.com/100DaysOfCloud/challenge-dynamodb-local)
