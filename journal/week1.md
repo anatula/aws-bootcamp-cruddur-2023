@@ -57,3 +57,10 @@ Some useful commands:
 | `\list db`|`\l db`| to view info about the `db` database
 
 [cheatsheet](https://tomcam.github.io/postgres/)
+
+### Extra
+
+- Why do we need to do `npm i` in the folder `\frontend-react-js` before doing the `docker-compose up`?
+> When docker builds the image, the node_modules directory is created within the container's directory, and all the dependencies are installed there. Then on runtime the directory from outside docker is mounted into the docker instance (which does not have the installed node_modules), hiding the node_modules you just installed
+
+More info: [stack overflow question](https://stackoverflow.com/a/32785014/5425908)
