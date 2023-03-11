@@ -10,3 +10,6 @@ opentelemetry-instrumentation-requests
 aws-xray-sdk
 # ----- cloudwatch -----
 watchtower
+# ----- rollbar -----
+blinker
+rollbar
