@@ -12,7 +12,7 @@ OTEL ([OpenTelemetry](https://opentelemetry.io/)) is a collection of tools, APIs
 [Honeycomb](https://www.honeycomb.io/) attach our flask application backend to Honeycomb UI and then you can analyze the app with honeycomb services.
 
 Some concepts:
-- Span: represent a single unit of work done to serve the request. Has a start time, duration. For example, a db query.
+- Span: represent a single unit of work done to serve the request. Has a start time, duration. For example, an http request, a db query.
 - Trace: composed of a spans (of time)
 - Instrumentation: code that sends the data that makes a trace
 
@@ -66,9 +66,83 @@ Show the metric `latency`: how long the request take? duration in milliseconds. 
 
 ![latency query metric](./assets/week2/honeycomb_queries_latency.png)
 
+## AWS X-ray
+
+More info of xray in my [aws logging notes](./notes/logging.md#aws-x-ray).
+
+Week's 2 instructions [here.](https://github.com/omenking/aws-bootcamp-cruddur-2023/blob/week-2/journal/week2.md)
+
+Install the xray daemon image docker from DockerHub:
+`amazon/aws-xray-daemon`
+
+Create an xray group:
+```
+aws xray create-group \
+   --group-name "Cruddur" \
+   --filter-expression "service(\"$FLASK_ADDRESS\")
+```
+![1](./assets/week2/xray-install.png)
+In the xray console:
+![1](./assets/week2/xray-group.png)
+
+Create a sampling rule:
+
+```
+aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+```
+![1](./assets/week2/xray-sampling.png)
+
+Using the xray middleware we start sending some segments:
+![1](./assets/week2/xray-send-trce.png)
+
+In the console:
+![1](./assets/week2/xray-console-traces.png)
+
+A segment in detail looks like this:
+![1](./assets/week2/xray-console-trace-detail.png)
+
+### Create a custom sub-segment
+
+Following this [guide](https://github.com/aws/aws-xray-sdk-python#start-a-custom-segmentsubsegment) we created a custom subsegment inside `UserActivities`:
+
+![](./assets/week2/xray-subsegment.png)
+
+We can visualize it in the console:
+![](./assets/week2/xray-subsegment-.png)
+
+Using the capture annotation:
+![](./assets/week2/xray-subsegment-capture.png)
+
+In the console:
+
+
+## Cloudwatch logs
+
+Created a group called `Cruddr` and import the logger from `app.py` inside `HomeActivities` to send an `info` level log:
+
+![](./assets/week2/cloudwatch-logs.png)
+## Rollbar
+
+After the [guide]()
+
+We created an endpoint that send `warning` log:
+
+```python
+@app.route('/rollbar/test')
+def rollbar_test():
+    rollbar.report_message('Hello World!', 'warning')
+    return "Hello World!"
+```
+
+To test if also received `error` we removed the return statement of an endpoint handler method and called it. The result shows the 2 logs: 
+
+![](./assets/week2/rollbar-console.png)
 ## Extra Info
 
 ### Git tags
+
+Git Tags will help to tag the last commit of a week, when all the activities are done, to give a visual point in the commit history and make it easy to find.
+
 List existing tags:
 
 `git tag`
