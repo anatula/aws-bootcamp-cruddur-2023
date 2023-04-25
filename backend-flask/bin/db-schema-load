@@ -1,0 +1,18 @@
+#! /usr/local/bin/bash
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="db-schema-load"
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+schema_path="$(realpath .)/db/schema.sql"
+
+if [ "$1" = "prod" ]; then
+    echo "using production"
+    URL=$PRODUCTION_CONNECTION_URL
+else
+    URL=$CONNECTION_URL
+fi
+
+echo $schema_path
+psql $URL cruddr < $schema_path
