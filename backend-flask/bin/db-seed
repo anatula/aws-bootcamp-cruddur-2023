@@ -9,7 +9,7 @@ seed_path="$(realpath .)/db/seed.sql"
 
 if [ "$1" = "prod" ]; then
     echo "using production"
-    URL=$PRODUCTION_CONNECTION_URL
+    URL=$PROD_CONNECTION_URL
 else
     URL=$CONNECTION_URL
 fi
