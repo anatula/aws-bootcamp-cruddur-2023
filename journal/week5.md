@@ -1,19 +1,24 @@
 # Week 5 — DynamoDB and Serverless Caching
 
-Install `boto3` library
+## Class notes
 
-`pip install -r requirements.txt`
+![w5-1](./assets/week5/week5-1-5.jpg)
+![w5-1](./assets/week5/week5-2-5.jpg)
+![w5-1](./assets/week5/week5-3-5.jpg)
+![w5-1](./assets/week5/week5-4-5.jpg)
+![w5-1](./assets/week5/week5-5-5.jpg)
 
-Do a 
-`docker-compose up`
 
-We'll start using dynamo db locally, to avoid consuming a lot of Gitpod credits.
+### Steps to run the db's scripts locally
 
-Create table dynamo db, we using the sdk
+We'll start using dynamodb and postgres locally, to avoid consuming a lot of Gitpod credits.
 
-Using python 3, since it's installed by default in mac:
+Do a `docker-compose up`, selecting only the `db` service.
 
-Installed boto3 using:
+To create table dynamodb, we are using the sdk. Using python 3, since it's installed by default in mac:
+
+Installed `boto3` using:
+
 `pip3 install -r requirements.txt`
 
 `docker network create dynamo-local-network`
@@ -34,8 +39,34 @@ export AWS_DEFAULT_REGION=eu-central-1
 ```
 ### Boto3 Resource vs Client
 
-Clients provide the low-level interface as closely with service APIs. Which means, all service operations will be supported by clients. Whereas, the Resources provide a hig-level interface which means differently than the raw low-level calls provided by Clients.
+**Clients** provide the low-level interface as closely with service APIs. Which means, all service operations will be supported by clients.
 
+Whereas, the **Resources** provide a hig-level interface which means differently than the raw low-level calls provided by Clients.
+
+### Implement Conversations with DynamoDB
+
+Created `lib/ddb.py`, the difference with `db.py` is that it's a stateless class (tip: try to do things without state, because it's easier to test, you've got only the input/outputs).
+
+Created `bin/cognito/list-users`:
+
+It's almost a 1-to-1 match between the CLI and the SDK:
+
+```bash
+aws cognito-idp list-users --user-pool-id=eu-central-1_xxxxxx
+```
+
+```python
+response = client.list_users(
+    UserPoolId='string',
+    AttributesToGet=[
+        'preferred_username',
+        'sub'
+    ],
+    #Limit=123,
+    #PaginationToken='string',
+    ]#Filter='string'
+)
+```
 ### Helpful links
 
 - [dynamodb-with-python-boto3](https://iamvickyav.medium.com/aws-dynamodb-with-python-boto3-part-1-intro-to-dynamodb-local-installation-b168d9d762d5)
