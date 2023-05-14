@@ -4,6 +4,7 @@ from flask_cors import CORS, cross_origin
 import os
 import sys
 
+from services.users_short import *
 from services.notifications_activities import *
 from services.home_activities import *
 from services.user_activities import *
@@ -135,17 +136,29 @@ def data_message_groups():
     app.logger.debug(e)
     return {}, 401
 
-@app.route("/api/messages/@<string:handle>", methods=['GET'])
-def data_messages(handle):
-  user_sender_handle = 'andrewbrown'
-  user_receiver_handle = request.args.get('user_reciever_handle')
 
-  model = Messages.run(user_sender_handle=user_sender_handle, user_receiver_handle=user_receiver_handle)
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
-  return
+@app.route("/api/messages/<string:message_group_uuid>", methods=['GET'])
+def data_messages(message_group_uuid):
+  access_token = extract_access_token(request.headers)
+  try:
+    claims = cognito_jwt_token.verify(access_token)
+    # authenticated request
+    app.logger.debug("authenticated")
+    app.logger.debug(claims)
+    cognito_user_id = claims['sub']
+    model = Messages.run(
+        cognito_user_id=cognito_user_id,
+        message_group_uuid=message_group_uuid
+      )
+    if model['errors'] is not None:
+      return model['errors'], 422
+    else:
+      return model['data'], 200
+  except TokenVerifyError as e:
+    # unauthenicatied request
+    app.logger.debug(e)
+    return {}, 401
+
 
 @app.route("/api/messages", methods=['POST','OPTIONS'])
 @cross_origin()
@@ -264,6 +277,11 @@ def data_activities_reply(activity_uuid):
   else:
     return model['data'], 200
   return
+
+@app.route("/api/users/@<string:handle>/short", methods=['GET'])
+def data_users_short(handle):
+  data = UsersShort.run(handle)
+  return data, 200
 
 if __name__ == "__main__":
   app.run(debug=True)
