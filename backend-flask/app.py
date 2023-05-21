@@ -61,6 +61,7 @@ trace.set_tracer_provider(provider)
 tracer = trace.get_tracer(__name__)
 
 app = Flask(__name__)
+logging.basicConfig(level=logging.DEBUG)
 
 cognito_jwt_token = CognitoJwtToken(
   user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
@@ -198,13 +199,6 @@ def data_create_message():
     app.logger.debug(e)
     return {}, 401
 
-  model = CreateMessage.run(message=message,user_sender_handle=user_sender_handle,user_receiver_handle=user_receiver_handle)
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
-  return
-
 @app.route("/api/activities/home", methods=['GET'])
 @xray_recorder.capture('activities_home')
 def data_home():
@@ -226,7 +220,7 @@ def data_home():
 
 @app.route("/api/activities/notifications", methods=['GET'])
 def data_notifications():
-  data = NotificationActivities.run()
+  data = NotificationsActivities.run()
   return data, 200
 
 @app.route("/api/activities/@<string:handle>", methods=['GET'])

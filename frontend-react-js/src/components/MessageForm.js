@@ -21,8 +21,10 @@ export default function ActivityForm(props) {
       console.log('onsubmit payload', message)
       let json = { 'message': message }
       if (params.handle) {
+        console.log("updating existing conversation", params.handle)
         json.handle = params.handle
       } else {
+        console.log("new conversation!", params.message_group_uuid )
         json.message_group_uuid = params.message_group_uuid
       }
 
